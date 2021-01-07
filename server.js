@@ -4,12 +4,12 @@ const morgan = require("morgan");
 const POKEDEX = require("./pokedex.json");
 const cors = require("cors");
 const helmet = require("helmet");
-const PORT = process.env.PORT || 8000;
-
+const { NODE_ENV } = require("./config");
+const { PORT } = require("./config");
 const app = express();
 
 const morganSetting = process.env.NODE_ENV === "production" ? "tiny" : "common";
-app.use(morganSetting);
+app.use(morgan(morganSetting));
 app.use(helmet());
 app.use(cors());
 app.use(function validateBearerToken(req, res, next) {
